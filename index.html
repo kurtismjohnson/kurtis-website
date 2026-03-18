@@ -16,7 +16,6 @@
         body {
             background-image: url(stars2.gif);
             background-repeat: repeat;
-            font-family: sans-serif;
         }
 
         /* ── CENTERED CONTENT ── */
@@ -56,18 +55,15 @@
             inset: 0;
             pointer-events: none;
             z-index: 999;
-            overflow: hidden;
         }
 
         .dvd-bounce {
-            position: absolute;
-            top: 0;
-            left: 0;
+            position: fixed; /* ✅ relative to viewport now */
             user-select: none;
         }
 
         .dvd-bounce img {
-            width: 700px;
+            width: 200px;
             height: auto;
             display: block;
             pointer-events: none;
