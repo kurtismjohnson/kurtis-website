@@ -92,10 +92,10 @@
     <script>
         const el = document.getElementById('bouncer');
         let x = 60, y = 60;
-        let dx = 3, dy = 3; // change these numbers to go faster or slower
+        let dx = 2, dy = 2; // change these numbers to go faster or slower
 
         function tick() {
-            const maxX = window.innerWidth  - el.offsetWidth;
+            const maxX = window.innerWidth - el.offsetWidth - 50;
             const maxY = window.innerHeight - el.offsetHeight;
 
             x += dx;
