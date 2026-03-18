@@ -40,6 +40,7 @@
             inset: 0;
             pointer-events: none; /* lets clicks pass through to your page */
             z-index: 999;
+            margin: -50px; 
         }
         .dvd-bounce {
             position: absolute;
@@ -95,7 +96,7 @@
         let dx = 2, dy = 2; // change these numbers to go faster or slower
 
         function tick() {
-            const maxX = window.innerWidth - el.offsetWidth - 50;
+            const maxX = window.innerWidth - el.offsetWidth;
             const maxY = window.innerHeight - el.offsetHeight;
 
             x += dx;
