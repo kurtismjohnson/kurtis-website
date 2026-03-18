@@ -4,93 +4,109 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kurtis' website</title>
+
     <style>
         html, body {
             margin: 0;
             padding: 0;
+            height: 100%;
+            overflow: hidden; /* ensures true edge-to-edge */
         }
 
         body {
             background-image: url(stars2.gif);
             background-repeat: repeat;
-            text-align: center;
+            font-family: sans-serif;
         }
 
+        /* ── CENTERED CONTENT ── */
         #content {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 50px 20px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(800px, 90%);
+            text-align: center;
+            z-index: 1;
         }
 
         a { 
             color: #f3a3fd;
         }
-        h1 {
+
+        h1, h4, p {
             color: #9eff00;
         }
-        h4 {
-            color: #9eff00;
-        }
-        p {
-            color: #9eff00;
-        }
+
         img {
             max-width: 50%;
             height: auto;
             margin: 20px 0;
         }
+
         .links a {
             display: inline-block;
-            margin: 5px 0;
+            margin: 5px;
             text-decoration: none;
         }
 
-        /* ── DVD bounce ── */
+        /* ── DVD BOUNCE LAYER ── */
         #bounce-arena {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            inset: 0; /* full viewport */
             pointer-events: none;
             z-index: 999;
             overflow: hidden;
         }
+
         .dvd-bounce {
             position: absolute;
             user-select: none;
         }
+
         .dvd-bounce img {
-            width: 700px;
+            width: 200px;
             height: auto;
             display: block;
             pointer-events: none;
         }
     </style>
 </head>
+
 <body>
 
+    <!-- BOUNCING IMAGE -->
     <div id="bounce-arena">
         <div class="dvd-bounce" id="bouncer">
             <img id="bouncing-img" src="painting.gif" alt="a picture of kurtis">
         </div>
     </div>
 
+    <!-- CENTERED CONTENT -->
     <div id="content">
         <h1>welcome to kurtis' kool website!</h1>
         <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
-        <h4><a href="https://kurtismjohnson.com" target="_blank">here is a link</a> to my other site where i share photo work and write about it.</h4>
+
+        <h4>
+            <a href="https://kurtismjohnson.com" target="_blank">
+                here is a link
+            </a> 
+            to my other site where i share photo work and write about it.
+        </h4>
+
         <div class="links">
             <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
                 <img src="bsky4.png" width="70" height="70">
             </a>
+
             <a href="https://instagram.com/kurtismjohnson" target="_blank">
                 <img src="insta4.png" width="70" height="70">
             </a>
-            <p>
+
+            <div>
                 <img src="webgif2.gif" alt="dial up computer">
                 <h4>you are connected to the world wide web!</h4>
-            </p>
+            </div>
         </div>
 
         <footer>
@@ -101,35 +117,35 @@
     </div>
 
     <script>
-        const arena = document.getElementById('bounce-arena');
-        const el    = document.getElementById('bouncer');
-        const img   = document.getElementById('bouncing-img');
+        const el = document.getElementById('bouncer');
+        const img = document.getElementById('bouncing-img');
 
         let x = 60, y = 60;
         let dx = 2, dy = 2;
 
         function tick() {
-            const maxX = arena.clientWidth  - el.offsetWidth;
-            const maxY = arena.clientHeight - el.offsetHeight;
+            const rect = el.getBoundingClientRect();
+
+            const maxX = window.innerWidth - rect.width;
+            const maxY = window.innerHeight - rect.height;
 
             x += dx;
             y += dy;
 
             if (x <= 0)    { x = 0;    dx =  Math.abs(dx); }
             if (x >= maxX) { x = maxX; dx = -Math.abs(dx); }
+
             if (y <= 0)    { y = 0;    dy =  Math.abs(dy); }
             if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
 
-            el.style.left = x + 'px';
-            el.style.top  = y + 'px';
+            el.style.transform = `translate(${x}px, ${y}px)`;
 
             requestAnimationFrame(tick);
         }
 
-        // Wait for the image to fully load so el.offsetWidth is correct
+        // Start after image loads (ensures correct dimensions)
         img.addEventListener('load', tick);
 
-        // If it's already cached and loaded, start immediately
         if (img.complete) tick();
     </script>
 
