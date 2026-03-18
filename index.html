@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kurtis' website</title>
     <style>
-        /* Reset margin/padding so background truly fills the screen */
         html, body {
             margin: 0;
             padding: 0;
-            width: 100%;
-            min-height: 100%;
-            overflow-x: hidden;
         }
 
         body {
@@ -20,12 +16,10 @@
             text-align: center;
         }
 
-        /* This wrapper replaces the old body margin for centering content */
         #content {
             max-width: 800px;
             margin: 0 auto;
             padding: 50px 20px;
-            
         }
 
         a { 
@@ -78,7 +72,7 @@
 
     <div id="bounce-arena">
         <div class="dvd-bounce" id="bouncer">
-            <img src="painting.gif" alt="a picture of kurtis">
+            <img id="bouncing-img" src="painting.gif" alt="a picture of kurtis">
         </div>
     </div>
 
@@ -109,6 +103,8 @@
     <script>
         const arena = document.getElementById('bounce-arena');
         const el    = document.getElementById('bouncer');
+        const img   = document.getElementById('bouncing-img');
+
         let x = 60, y = 60;
         let dx = 2, dy = 2;
 
@@ -130,7 +126,11 @@
             requestAnimationFrame(tick);
         }
 
-        tick();
+        // Wait for the image to fully load so el.offsetWidth is correct
+        img.addEventListener('load', tick);
+
+        // If it's already cached and loaded, start immediately
+        if (img.complete) tick();
     </script>
 
 </body>
