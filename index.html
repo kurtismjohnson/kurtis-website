@@ -37,10 +37,12 @@
         /* ── DVD bounce ── */
         #bounce-arena {
             position: fixed;
-            inset: 0;
-            pointer-events: none; /* lets clicks pass through to your page */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
             z-index: 999;
-            margin: -50px; 
         }
         .dvd-bounce {
             position: absolute;
@@ -56,20 +58,14 @@
 </head>
 <body>
 
-    <!-- Bounce arena sits over the whole page but doesn't block clicks -->
     <div id="bounce-arena">
         <div class="dvd-bounce" id="bouncer">
-            <!-- Bouncing your painting.gif!
-                 To bounce text instead, replace the img tag with e.g.:
-                 <span style="color:#9eff00;font-size:2rem;font-weight:900;white-space:nowrap;">kurtis</span>
-            -->
             <img src="painting.gif" alt="a picture of kurtis">
         </div>
     </div>
 
     <h1>welcome to kurtis' kool website!</h1>
     <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
-   
     <h4><a href="https://kurtismjohnson.com" target="_blank">here is a link</a> to my other site where i share photo work and write about it.</h4>
     <div class="links">
         <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
@@ -93,10 +89,10 @@
     <script>
         const el = document.getElementById('bouncer');
         let x = 60, y = 60;
-        let dx = 2, dy = 2; // change these numbers to go faster or slower
+        let dx = 2, dy = 2;
 
         function tick() {
-            const maxX = window.innerWidth - el.offsetWidth;
+            const maxX = window.innerWidth  - el.offsetWidth;
             const maxY = window.innerHeight - el.offsetHeight;
 
             x += dx;
