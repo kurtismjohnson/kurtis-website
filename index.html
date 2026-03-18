@@ -30,6 +30,7 @@
 
     a { color: #f3a3fd; }
     h1, h4, p { color: #9eff00; }
+
     img { max-width: 50%; height: auto; margin: 20px 0; }
     .links a { display: inline-block; margin: 5px; text-decoration: none; }
 
@@ -48,8 +49,8 @@
 
     /* Make image smaller on smaller screens */
     .dvd-bounce img {
-        width: 400px;
-        max-width: 40vw; /* scale on mobile */
+        width: 200px;
+        max-width: 40vw; /* responsive scaling for mobile */
         height: auto;
         display: block;
         pointer-events: none;
@@ -92,9 +93,9 @@ const img = document.getElementById('bouncing-img');
 let x = 60, y = 60;
 let dx = 2, dy = 2;
 
-// store current maxX / maxY
 let maxX = 0, maxY = 0;
 
+// calculate bounds
 function updateMaxBounds() {
     maxX = window.innerWidth - el.offsetWidth;
     maxY = window.innerHeight - el.offsetHeight;
@@ -102,8 +103,13 @@ function updateMaxBounds() {
     // keep x/y in bounds if window shrinks
     if (x > maxX) x = maxX;
     if (y > maxY) y = maxY;
+
+    // immediately reposition element
+    el.style.left = x + "px";
+    el.style.top  = y + "px";
 }
 
+// main animation loop
 function tick() {
     x += dx;
     y += dy;
@@ -120,7 +126,7 @@ function tick() {
     requestAnimationFrame(tick);
 }
 
-// recalc bounds when window resizes
+// recalc bounds on window resize or rotation
 window.addEventListener('resize', updateMaxBounds);
 
 img.addEventListener('load', () => {
