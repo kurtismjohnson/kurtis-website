@@ -43,13 +43,14 @@
             height: 100vh;
             pointer-events: none;
             z-index: 999;
+            overflow: hidden;
         }
         .dvd-bounce {
             position: absolute;
             user-select: none;
         }
         .dvd-bounce img {
-            width: 800px;
+            width: 700px;
             height: auto;
             display: block;
             pointer-events: none;
@@ -87,13 +88,15 @@
     </footer>
 
     <script>
-        const el = document.getElementById('bouncer');
+        const arena = document.getElementById('bounce-arena');
+        const el    = document.getElementById('bouncer');
         let x = 60, y = 60;
         let dx = 2, dy = 2;
 
         function tick() {
-            const maxX = window.innerWidth  - el.offsetWidth;
-            const maxY = window.innerHeight - el.offsetHeight;
+            // Measure the arena itself, not the window
+            const maxX = arena.clientWidth  - el.offsetWidth;
+            const maxY = arena.clientHeight - el.offsetHeight;
 
             x += dx;
             y += dy;
