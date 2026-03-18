@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;
             height: 100%;
-            overflow: hidden; /* ensures true edge-to-edge */
+            overflow: hidden;
         }
 
         body {
@@ -53,7 +53,7 @@
         /* ── DVD BOUNCE LAYER ── */
         #bounce-arena {
             position: fixed;
-            inset: 0; /* full viewport */
+            inset: 0;
             pointer-events: none;
             z-index: 999;
             overflow: hidden;
@@ -61,11 +61,13 @@
 
         .dvd-bounce {
             position: absolute;
+            top: 0;
+            left: 0;
             user-select: none;
         }
 
         .dvd-bounce img {
-            width: 200px;
+            width: 700px;
             height: auto;
             display: block;
             pointer-events: none;
@@ -124,10 +126,11 @@
         let dx = 2, dy = 2;
 
         function tick() {
-            const rect = el.getBoundingClientRect();
+            const elWidth = el.offsetWidth;
+            const elHeight = el.offsetHeight;
 
-            const maxX = window.innerWidth - rect.width;
-            const maxY = window.innerHeight - rect.height;
+            const maxX = window.innerWidth - elWidth;
+            const maxY = window.innerHeight - elHeight;
 
             x += dx;
             y += dy;
@@ -143,9 +146,7 @@
             requestAnimationFrame(tick);
         }
 
-        // Start after image loads (ensures correct dimensions)
         img.addEventListener('load', tick);
-
         if (img.complete) tick();
     </script>
 
