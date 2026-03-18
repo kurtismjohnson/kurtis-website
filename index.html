@@ -14,14 +14,14 @@
             color: #f3a3fd;
         }
         h1 {
-				color:#9eff00;
-			}
-	h4 {
-				color:#9eff00;
-			}
+            color:#9eff00;
+        }
+        h4 {
+            color:#9eff00;
+        }
         p {
-				color:#9eff00;
-			}
+            color:#9eff00;
+        }
         img {
             max-width: 50%;
             height: auto;
@@ -32,39 +32,88 @@
             display: inline-block;
             margin: 5px 0;
             text-decoration: none;
-				const bouncer = initDVDBounce({
-  mode: 'image',
-  imageSrc: 'painting.gif',
-  speedX: 1,
-  speedY: 1,
-});
-           
+        }
+
+        /* ── DVD bounce ── */
+        #bounce-arena {
+            position: fixed;
+            inset: 0;
+            pointer-events: none; /* lets clicks pass through to your page */
+            z-index: 999;
+        }
+        .dvd-bounce {
+            position: absolute;
+            user-select: none;
+        }
+        .dvd-bounce img {
+            width: 100px;
+            height: auto;
+            display: block;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Bounce arena sits over the whole page but doesn't block clicks -->
+    <div id="bounce-arena">
+        <div class="dvd-bounce" id="bouncer">
+            <!-- Bouncing your painting.gif!
+                 To bounce text instead, replace the img tag with e.g.:
+                 <span style="color:#9eff00;font-size:2rem;font-weight:900;white-space:nowrap;">kurtis</span>
+            -->
+            <img src="painting.gif" alt="a picture of kurtis">
+        </div>
+    </div>
+
     <h1>welcome to kurtis' kool website!</h1>
     <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
     <img src="painting.gif" alt="a picture of kurtis">
-
     <h4><a href="https://kurtismjohnson.com" target="_blank">here is a link</a> to my other site where i share photo work and write about it.</h4>
     <div class="links">
         <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
-  <img src="bsky4.png"
-      width="70"
-      height="70"><a href="https://instagram.com/kurtismjohnson" target="_blank">
-  <img src="insta4.png"
-      width="70"
-      height="70">
-</a>
-  <p>
-    <img src="webgif2.gif" alt="dial up computer">
-    <h4>you are connected to the world wide web!</h4>
-      
+            <img src="bsky4.png" width="70" height="70">
+        </a>
+        <a href="https://instagram.com/kurtismjohnson" target="_blank">
+            <img src="insta4.png" width="70" height="70">
+        </a>
+        <p>
+            <img src="webgif2.gif" alt="dial up computer">
+            <h4>you are connected to the world wide web!</h4>
+        </p>
     </div>
- <footer>
-    <small>
-      <p>© kurtis m johnson llc 2025</p>
-    </small>
-</footer>
+
+    <footer>
+        <small>
+            <p>© kurtis m johnson llc 2025</p>
+        </small>
+    </footer>
+
+    <script>
+        const el = document.getElementById('bouncer');
+        let x = 60, y = 60;
+        let dx = 3, dy = 3; // change these numbers to go faster or slower
+
+        function tick() {
+            const maxX = window.innerWidth  - el.offsetWidth;
+            const maxY = window.innerHeight - el.offsetHeight;
+
+            x += dx;
+            y += dy;
+
+            if (x <= 0)    { x = 0;    dx =  Math.abs(dx); }
+            if (x >= maxX) { x = maxX; dx = -Math.abs(dx); }
+            if (y <= 0)    { y = 0;    dy =  Math.abs(dy); }
+            if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
+
+            el.style.left = x + 'px';
+            el.style.top  = y + 'px';
+
+            requestAnimationFrame(tick);
+        }
+
+        tick();
+    </script>
+
 </body>
 </html>
