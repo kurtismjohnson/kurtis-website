@@ -1,151 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kurtis' website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kurtis' website</title>
+<style>
+    html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+    }
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden;
-        }
+    body {
+        background-image: url(stars2.gif);
+        background-repeat: repeat;
+    }
 
-        body {
-            background-image: url(stars2.gif);
-            background-repeat: repeat;
-        }
+    /* Centered content */
+    #content {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(800px, 90%);
+        text-align: center;
+        z-index: 1;
+    }
 
-        /* ── CENTERED CONTENT ── */
-        #content {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: min(800px, 90%);
-            text-align: center;
-            z-index: 1;
-            
-        }
+    a { color: #f3a3fd; }
+    h1, h4, p { color: #9eff00; }
+    img { max-width: 50%; height: auto; margin: 20px 0; }
+    .links a { display: inline-block; margin: 5px; text-decoration: none; }
 
-        a { 
-            color: #f3a3fd;
-        }
+    /* Bounce layer */
+    #bounce-arena {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 999;
+    }
 
-        h1, h4, p {
-            color: #9eff00;
-        }
+    .dvd-bounce {
+        position: fixed;
+        user-select: none;
+    }
 
-        img {
-            max-width: 50%;
-            height: auto;
-            margin: 20px 0;
-        }
-
-        .links a {
-            display: inline-block;
-            margin: 5px;
-            text-decoration: none;
-        }
-
-        /* ── DVD BOUNCE LAYER ── */
-        #bounce-arena {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 999;
-        }
-
-        .dvd-bounce {
-            position: fixed; /* ✅ relative to viewport now */
-            user-select: none;
-        }
-
-        .dvd-bounce img {
-            width: 600px;
-            height: auto;
-            display: block;
-            pointer-events: none;
-        }
-    </style>
+    /* Make image smaller on smaller screens */
+    .dvd-bounce img {
+        width: 200px;
+        max-width: 40vw; /* scale on mobile */
+        height: auto;
+        display: block;
+        pointer-events: none;
+    }
+</style>
 </head>
-
 <body>
 
-    <!-- BOUNCING IMAGE -->
-    <div id="bounce-arena">
-        <div class="dvd-bounce" id="bouncer">
-            <img id="bouncing-img" src="painting.gif" alt="a picture of kurtis">
+<div id="bounce-arena">
+    <div class="dvd-bounce" id="bouncer">
+        <img id="bouncing-img" src="painting.gif" alt="a picture of kurtis">
+    </div>
+</div>
+
+<div id="content">
+    <h1>welcome to kurtis' kool website!</h1>
+    <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
+    <h4><a href="https://kurtismjohnson.com" target="_blank">here is a link</a> to my other site where i share photo work and write about it.</h4>
+    <div class="links">
+        <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
+            <img src="bsky4.png" width="70" height="70">
+        </a>
+        <a href="https://instagram.com/kurtismjohnson" target="_blank">
+            <img src="insta4.png" width="70" height="70">
+        </a>
+        <div>
+            <img src="webgif2.gif" alt="dial up computer">
+            <h4>you are connected to the world wide web!</h4>
         </div>
     </div>
+    <footer>
+        <small><p>© kurtis m johnson llc 2025</p></small>
+    </footer>
+</div>
 
-    <!-- CENTERED CONTENT -->
-    <div id="content">
-        <h1>welcome to kurtis' kool website!</h1>
-        <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
+<script>
+const el = document.getElementById('bouncer');
+const img = document.getElementById('bouncing-img');
 
-        <h4>
-            <a href="https://kurtismjohnson.com" target="_blank">
-                here is a link
-            </a> 
-            to my other site where i share photo work and write about it.
-        </h4>
+let x = 60, y = 60;
+let dx = 2, dy = 2;
 
-        <div class="links">
-            <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
-                <img src="bsky4.png" width="70" height="70">
-            </a>
+// store current maxX / maxY
+let maxX = 0, maxY = 0;
 
-            <a href="https://instagram.com/kurtismjohnson" target="_blank">
-                <img src="insta4.png" width="70" height="70">
-            </a>
+function updateMaxBounds() {
+    maxX = window.innerWidth - el.offsetWidth;
+    maxY = window.innerHeight - el.offsetHeight;
 
-            <div>
-                <img src="webgif2.gif" alt="dial up computer">
-                <h4>you are connected to the world wide web!</h4>
-            </div>
-        </div>
+    // keep x/y in bounds if window shrinks
+    if (x > maxX) x = maxX;
+    if (y > maxY) y = maxY;
+}
 
-        <footer>
-            <small>
-                <p>© kurtis m johnson llc 2025</p>
-            </small>
-        </footer>
-    </div>
+function tick() {
+    x += dx;
+    y += dy;
 
-    <script>
-        const el = document.getElementById('bouncer');
-        const img = document.getElementById('bouncing-img');
+    if (x <= 0)    { x = 0;    dx =  Math.abs(dx); }
+    if (x >= maxX) { x = maxX; dx = -Math.abs(dx); }
 
-        let x = 60, y = 60;
-        let dx = 2, dy = 2;
+    if (y <= 0)    { y = 0;    dy =  Math.abs(dy); }
+    if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
 
-        function tick() {
-            const elWidth = el.offsetWidth;
-            const elHeight = el.offsetHeight;
+    el.style.left = x + "px";
+    el.style.top  = y + "px";
 
-            const maxX = window.innerWidth - elWidth;
-            const maxY = window.innerHeight - elHeight;
+    requestAnimationFrame(tick);
+}
 
-            x += dx;
-            y += dy;
+// recalc bounds when window resizes
+window.addEventListener('resize', updateMaxBounds);
 
-            if (x <= 0)    { x = 0;    dx =  Math.abs(dx); }
-            if (x >= maxX) { x = maxX; dx = -Math.abs(dx); }
+img.addEventListener('load', () => {
+    updateMaxBounds();
+    tick();
+});
 
-            if (y <= 0)    { y = 0;    dy =  Math.abs(dy); }
-            if (y >= maxY) { y = maxY; dy = -Math.abs(dy); }
-
-            el.style.transform = `translate(${x}px, ${y}px)`;
-
-            requestAnimationFrame(tick);
-        }
-
-        img.addEventListener('load', tick);
-        if (img.complete) tick();
-    </script>
+if (img.complete) {
+    updateMaxBounds();
+    tick();
+}
+</script>
 
 </body>
 </html>
