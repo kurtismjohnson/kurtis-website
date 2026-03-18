@@ -5,29 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>kurtis' website</title>
     <style>
+        /* Reset margin/padding so background truly fills the screen */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
             background-image: url(stars2.gif);
+            background-repeat: repeat;
             text-align: center;
-            margin: 50px;
         }
+
+        /* This wrapper replaces the old body margin for centering content */
+        #content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
         a { 
             color: #f3a3fd;
         }
         h1 {
-            color:#9eff00;
+            color: #9eff00;
         }
         h4 {
-            color:#9eff00;
+            color: #9eff00;
         }
         p {
-            color:#9eff00;
+            color: #9eff00;
         }
         img {
             max-width: 50%;
             height: auto;
             margin: 20px 0;
         }
-            
         .links a {
             display: inline-block;
             margin: 5px 0;
@@ -50,7 +65,7 @@
             user-select: none;
         }
         .dvd-bounce img {
-            width: 700px;
+            width: 200px;
             height: auto;
             display: block;
             pointer-events: none;
@@ -65,27 +80,29 @@
         </div>
     </div>
 
-    <h1>welcome to kurtis' kool website!</h1>
-    <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
-    <h4><a href="https://kurtismjohnson.com" target="_blank">here is a link</a> to my other site where i share photo work and write about it.</h4>
-    <div class="links">
-        <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
-            <img src="bsky4.png" width="70" height="70">
-        </a>
-        <a href="https://instagram.com/kurtismjohnson" target="_blank">
-            <img src="insta4.png" width="70" height="70">
-        </a>
-        <p>
-            <img src="webgif2.gif" alt="dial up computer">
-            <h4>you are connected to the world wide web!</h4>
-        </p>
-    </div>
+    <div id="content">
+        <h1>welcome to kurtis' kool website!</h1>
+        <h4>my name is kurtis, and i am a photographer. here is a photo of me.</h4>
+        <h4><a href="https://kurtismjohnson.com" target="_blank">here is a link</a> to my other site where i share photo work and write about it.</h4>
+        <div class="links">
+            <a href="https://bsky.app/profile/kurtismjohnson.me" target="_blank">
+                <img src="bsky4.png" width="70" height="70">
+            </a>
+            <a href="https://instagram.com/kurtismjohnson" target="_blank">
+                <img src="insta4.png" width="70" height="70">
+            </a>
+            <p>
+                <img src="webgif2.gif" alt="dial up computer">
+                <h4>you are connected to the world wide web!</h4>
+            </p>
+        </div>
 
-    <footer>
-        <small>
-            <p>© kurtis m johnson llc 2025</p>
-        </small>
-    </footer>
+        <footer>
+            <small>
+                <p>© kurtis m johnson llc 2025</p>
+            </small>
+        </footer>
+    </div>
 
     <script>
         const arena = document.getElementById('bounce-arena');
@@ -94,7 +111,6 @@
         let dx = 2, dy = 2;
 
         function tick() {
-            // Measure the arena itself, not the window
             const maxX = arena.clientWidth  - el.offsetWidth;
             const maxY = arena.clientHeight - el.offsetHeight;
 
